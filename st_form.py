@@ -42,3 +42,24 @@ selected_val = form.slider('Select a value')
 form.form_submit_button('Submit')
 
 st.write('Selected value: ', selected_val)
+
+# Using modify a value
+
+def update_transcription():
+    # Update the session state within this function
+    st.session_state.trans = st.session_state.temp_trans
+
+if 'trans' not in st.session_state:
+    st.session_state.trans = 'texto de prueba, merequetengue'
+
+st.header('3. Form with text input')
+
+with st.form("my_form_3"):
+    # Use a temporary state variable for the text area
+    st.session_state.temp_trans = st.text_area("Esto fue lo que escuché", value=st.session_state.trans)
+    
+    # Use a callback for the submit button
+    submitted = st.form_submit_button('Actualizar', on_click=update_transcription)
+
+# Display the current value of the session state variable
+st.write(st.session_state.trans)
